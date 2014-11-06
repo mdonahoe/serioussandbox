@@ -1,0 +1,34 @@
+server {
+	listen   80;
+	server_name  serioussandbox.com;
+	access_log  /var/log/nginx/localhost.access.log;
+	root	/home/dho/serioussandbox/public;
+
+	location /{
+		access_log  off;
+
+		set $test "";
+
+		if ($request_method != GET) {
+			proxy_pass http://localhost:5000;
+			break;
+		}
+
+		if ($request_filename ~ ^(.*)\/$){
+			set $test S;
+		}
+
+		if (-f $request_filename/index.html) {
+			set $test "${test}F";
+		}
+
+		if ($test = SF){
+			rewrite (.*) $1index.html break;
+		}
+
+		if (!-f $request_filename) {
+			proxy_pass http://localhost:5000;
+			break;
+		}
+	}
+}

@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta name="viewport" content="width=400px; user-scalable=0;" />
+<style>
+body {
+	padding:0;
+	margin:0;
+	overflow-y:hidden;
+}
+#score {
+	position:absolute;
+	top:150px;
+	left:0;
+	width:100%;
+	text-align:center;
+	font-size:80px;
+	text-shadow: white 2px 2px;
+  -moz-user-select: none;//mozilla browsers
+  -khtml-user-select: none;//webkit browsers
+}
+#timer {
+	position:absolute;
+	bottom:0;
+	right:0;
+	width:100%;
+	text-align:right;
+	font-size:100px;
+	text-shadow: white 2px 2px;
+  -moz-user-select: none;//mozilla browsers
+  -khtml-user-select: none;//webkit browsers
+}
+</style>
+<script src="smudge.js"></script>
+<script src="game.js"></script>
+</head>
+<body onload="start_game()" ontouchmove="fingerMove(event)"
+	ontouchend="fingerUp(event)"
+	ontouchstart="fingerStart(event)">
+<canvas id=tutorial width=400 height=400>
+</canvas>
+<div id=score></div><div id=timer></div>

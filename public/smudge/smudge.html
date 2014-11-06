@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<style>
+body {
+	padding:0;
+	margin:0;
+	overflow-y:hidden;
+}
+#score {
+	font-size:30px;
+}
+</style>
+<script src="smudge.js"></script>
+</head>
+<body onload="startUp()" ontouchmove="fingerMove(event)"
+	ontouchend="fingerUp(event)"
+	ontouchstart="fingerStart(event)">
+<canvas id=tutorial>
+</canvas><br>
+	
+<input type=button onclick="preview()" value="start">
+<input type=button onclick="scaleimage()" value="scale">
+<input type=button onclick="bad()" value="good"><div id=score></div><div id=timer></div>

@@ -1,0 +1,97 @@
+<html>
+<head>
+<style>
+body {
+	padding:0;
+	margin:0;
+}
+#score {
+	font-size:30px;
+}
+</style>
+<script>
+var oldx;
+var oldy;
+function getContext(){
+	var canvas = document.getElementById('tutorial');
+	if (canvas.getContext){
+		var ctx = canvas.getContext('2d');
+		return ctx;
+	} else {
+		alert('You need Safari or Firefox 1.5+ to see this demo.');
+	}
+}
+function drawShape(x,y,r){
+	if (!x) x=0;
+	if (!y) y=0;
+	if (!r) r=10;
+	var ctx = getContext();
+	ctx.beginPath();
+	ctx.arc(x,y,r,0,Math.PI*2,true)
+	ctx.closePath();
+	ctx.fill();
+}
+function drawLine(x,y){
+	if (!x) x = 0;
+	if (!y) y = 0;
+	if (!oldx) oldx = x;
+	if (!oldy) oldy = y;
+	
+	var dx = x-oldx;
+	var dy = y-oldy;
+	var dist = Math.sqrt(dx*dx+dy*dy);
+	var N = 10;
+	var r = Math.min(200,Math.max(1,dist));
+	dR = .1*(r-R)/N;
+	for (var i=0;i < N+1;i++){
+		R+=dR;
+		drawShape(oldx+i*dx/N,oldy+i*dy/N,R);
+	}
+	oldx=x;
+	oldy=y;
+
+}
+function setFill(r,g,b){
+	r = Math.floor(r);
+	g = Math.floor(g);
+	b = Math.floor(b);
+	var ctx = getContext();
+	ctx.fillStyle = 'rgb('+r+','+g+','+b+')';
+}
+function fingerStart(e){
+	e.preventDefault();
+	var x = e.targetTouches[0].pageX;
+	var y = e.targetTouches[0].pageY;
+	oldx = undefined;
+	oldy = undefined;
+	R=10;
+	//alert(x);
+	setFill(255,0,0);
+	drawLine(x,y);
+	return false;
+}
+
+function fingerMove(e){
+	e.preventDefault();
+	var x = e.targetTouches[0].pageX;
+	var y = e.targetTouches[0].pageY;
+	drawLine(x,y);
+	return false;
+}
+function fingerUp(e){
+	e.preventDefault();
+	return false;
+}
+</script>
+</head>
+<body >
+<canvas id=tutorial 
+	width=400 height=400
+	ontouchmove="fingerMove(event)"
+	ontouchend="fingerUp(event)"
+	ontouchstart="fingerStart(event)">
+</canvas><br>
+	
+<input type=button onclick="preview()" value="start">
+<input type=button onclick="scaleimage()" value="scale">
+<input type=button onclick="bad()" value="good"><div id=score></div><div id=timer></div>

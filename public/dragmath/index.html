@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=10.0; maximum-scale=10.0; user-scalable=0;" />
+<title>dragmath</title>
+<script>
+
+touchstart = function(e){
+	//alert(e.target);
+}
+touchend = function(e){
+	alert(e.target.style.posLeft);
+	var es = document.getElementsByClassName('block');
+	for (var e=0;e<es.length; e++){
+		es[e].ontouchstart = touchstart;
+		es[e].ontouchend = touchend;
+	}
+}
+ready = function(){
+	var es = document.getElementsByClassName('block');
+	for (var e=0;e<es.length; e++){
+		es[e].ontouchstart = touchstart;
+		es[e].ontouchend = touchend;
+	}
+}
+</script>
+<style>
+.block {
+	border-style:solid;
+	border-width:1px;
+	padding:5px;
+	float:left;
+	width:auto;
+}
+</style>
+<body onload = "ready()">
+<div class=block>a</div>
+<div class=block>b<div class=block>1</div></div>
+<div class=block>c</div>
